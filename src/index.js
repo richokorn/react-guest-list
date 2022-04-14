@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -10,3 +9,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
+
+export const myVar = 2;
