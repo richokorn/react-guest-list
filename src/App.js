@@ -45,7 +45,11 @@ export default function App() {
       <div css={[yWrapper, appleWrapper]}>
         <div css={ySpacer} />
         <div css={ySpacer} />
-        <ATopCard addGuest={addGuest} setAllGuests={setAllGuests} />
+        <ATopCard
+          allGuests={allGuests}
+          setAllGuests={setAllGuests}
+          addGuest={addGuest}
+        />
         <div css={ySpacer} />
         <div css={ySpacer} />
         <BListCard allGuests={allGuests} setAllGuests={setAllGuests} />

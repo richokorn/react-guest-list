@@ -31,15 +31,6 @@ Some features are similar to [this example](https://todomvc.com/examples/react/#
   - [ ] Filter to show only non-attending guests
   - [ ] Filter to show only attending guests
   - [ ] Button to reset filters to again show all of the guests
-- [ ] Allow editing first and last names of existing guests
-- [ ] Store the guest list permanently
-  - [ ] Set up a PostgreSQL database on Heroku
-  - [ ] Fork the API repo and change it to use the database
-- [ ] Allow for saving an "attending deadline" with each guest and if the current date is later than that deadline (and the guest hasn't been set to "attending"), display the guest differently
-- [ ] Change the frontend and the API to allow for creating multiple events, each with their own name, location, and guest list
-- [ ] Convert your frontend code to TypeScript (see [Adding TypeScript](https://create-react-app.dev/docs/adding-typescript/))
-- [ ] Create a favicon that identifies your app: (see [Generating and Adding Favicons](https://learn.upleveled.io/courses/btcmp-l-webfs-gen-0/modules/cheatsheet-design-ux/#generating-and-adding-favicons))
-- [ ] Right after [creating your first (empty) Git commit](https://learn.upleveled.io/courses/btcmp-l-webfs-gen-0/modules/cheatsheet-command-line/#4-create-and-push-an-initial-commit), create a new branch. Use this branch to [open a pull request on GitHub](https://learn.upleveled.io/courses/btcmp-l-webfs-gen-0/modules/cheatsheet-git-github/#opening-pull-requests)
 
 ## Acceptance Criteria
 

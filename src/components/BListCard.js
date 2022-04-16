@@ -1,12 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { deleteGuestById, updateAttendanceById } from './CRUDfunctions';
+import { useState } from 'react';
+import {
+  deleteAllGuests,
+  deleteGuestById,
+  updateAttendanceById,
+} from './CRUDfunctions';
 import {
   cardBody,
   cardHeader,
   cardStyle,
   deleteGuest,
   hr,
+  sorterStyle,
+  xSpacer,
   xWrapper,
   ySpacer,
   yWrapper,
@@ -22,18 +29,42 @@ const attendanceStyle = css`
 `;
 
 export default function BListCard(props) {
-  // The Guest List itself displaying the "Loading...""
-  // controls if the inputs are disabled or not
-
   // This we need to control a number of stylings.
   const { innerWidth } = useWindowDimensions();
+
+  // console log the attending guests
+  const [attendingGuestsToggle, setAttendingGuestsToggle] = useState(false);
+  const [notAttendingGuestsToggle, setNotAttendingGuestsToggle] =
+    useState(false);
+  let attendingGuests = [];
+  let notAttendingGuests = [];
+  let variableToMap = [];
+
+  if (props.allGuests) {
+    attendingGuests = props.allGuests.filter(
+      (guest) => guest.attending === true,
+    );
+    notAttendingGuests = props.allGuests.filter(
+      (guest) => guest.attending === false,
+    );
+  }
+
+  if (attendingGuestsToggle && !notAttendingGuestsToggle) {
+    variableToMap = attendingGuests;
+  } else if (!attendingGuestsToggle && notAttendingGuestsToggle) {
+    variableToMap = notAttendingGuests;
+  } else if (attendingGuestsToggle && notAttendingGuestsToggle) {
+    variableToMap = props.allGuests;
+  } else {
+    variableToMap = props.allGuests;
+  }
 
   // We want to map the list of guests as li elements, with some nice styling
 
   let listItems;
 
   if (props.allGuests) {
-    listItems = props.allGuests.map((guest) => (
+    listItems = variableToMap.map((guest) => (
       <li
         key={guest.id}
         css={yWrapper}
@@ -73,12 +104,14 @@ export default function BListCard(props) {
                 ? {
                     border: innerWidth > 700 ? '2px solid white' : null,
                     color: 'white',
+                    fontWeight: 'bold',
                     minWidth: innerWidth > 700 ? 'min-content' : 'auto',
                     width: innerWidth > 700 ? '15%' : 'auto',
                   }
                 : {
                     border: innerWidth > 700 ? '2px solid red' : null,
                     color: 'red',
+                    fontWeight: 'bold',
                     minWidth: innerWidth > 700 ? 'min-content' : 'auto',
                     width: innerWidth > 700 ? '15%' : 'auto',
                   }
@@ -136,26 +169,100 @@ export default function BListCard(props) {
     ));
   }
 
+  if (!props.allGuests) {
+    return (
+      <div>
+        <div css={[cardStyle, yWrapper]} /* Outest */>
+          <div
+            css={cardHeader}
+            style={{ backgroundColor: 'white', h2: { color: '#324376' } }}
+          >
+            <h2 style={{ fontSize: 24 }}>List of Guests</h2>
+          </div>
+          <div
+            css={[cardBody, yWrapper]}
+            style={{ backgroundColor: '#324376' }}
+          >
+            <em>
+              {innerWidth > 700 ? 'Click' : 'Tap'} checkbox to toggle attendance
+            </em>
+            <div css={[hr, ySpacer]} />
+            <em>Loading...</em>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div css={[cardStyle, yWrapper]} /* Outest */>
         <div
-          css={cardHeader}
+          css={[cardHeader, xWrapper]}
           style={{ backgroundColor: 'white', h2: { color: '#324376' } }}
         >
           <h2 style={{ fontSize: 24 }}>List of Guests</h2>
         </div>
-        <div css={[cardBody, yWrapper]} style={{ backgroundColor: '#324376' }}>
-          <em>
-            {innerWidth > 700 ? 'Click' : 'Tap'} checkbox to toggle attendance
-          </em>
-          <div css={[hr, ySpacer]} />
-          {!props.allGuests ? (
-            <em>Loading...</em>
-          ) : (
-            <ul style={{ margin: 0 }}>{listItems}</ul>
-          )}
+      </div>
+      <div css={[cardBody, yWrapper]} style={{ backgroundColor: '#324376' }}>
+        <div css={xWrapper} style={{ display: 'space-between' }}>
+          <div css={yWrapper} style={{ width: 'fit-content' }}>
+            <em style={innerWidth > 700 ? { fontsize: '12px' } : null}>
+              {innerWidth > 700 ? 'Click ' : 'Tap'} checkbox to toggle
+              attendance
+            </em>
+          </div>
+          <div css={yWrapper}>
+            <div css={[xWrapper, sorterStyle]}>
+              <label htmlFor="attendingGuestsToggle">Sort by Attending</label>
+              <div css={xSpacer} />
+              <input
+                id="attendingGuestsToggle"
+                type="checkbox"
+                checked={attendingGuestsToggle}
+                onChange={(event) => {
+                  setAttendingGuestsToggle(event.target.checked);
+                  if (notAttendingGuestsToggle) {
+                    setNotAttendingGuestsToggle(false);
+                  }
+                }}
+              />
+            </div>
+            <div css={[xWrapper, sorterStyle]}>
+              <label htmlFor="notAttendingGuestsToggle">
+                Sort by Not Attending
+              </label>
+              <div css={xSpacer} />
+              <input
+                id="notAttendingGuestsToggle"
+                type="checkbox"
+                checked={notAttendingGuestsToggle}
+                onChange={(event) => {
+                  setNotAttendingGuestsToggle(event.target.checked);
+                  if (attendingGuestsToggle) {
+                    setAttendingGuestsToggle(false);
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <button
+            css={deleteGuest}
+            style={{ height: '100%' }}
+            onClick={async () => {
+              await deleteAllGuests();
+              props.setAllGuests([]);
+            }}
+          >
+            {innerWidth > 700 ? 'Delete All' : '❌ All'}
+          </button>
         </div>
+        <div css={[hr, ySpacer]} />
+        {listItems.length === 0 ? (
+          <em>No Guests</em>
+        ) : (
+          <ul style={{ margin: 0 }}>{listItems}</ul>
+        )}
       </div>
     </div>
   );

@@ -36,3 +36,15 @@ export async function deleteGuestById(id) {
   const deletedGuest = await response.json();
   return deletedGuest;
 }
+
+// Delete All Guests By Id Using Array Length
+export async function deleteAllGuests() {
+  console.log("deleteAllGuests() fired");
+  const allGuests = await getAllGuests();
+  console.log("CRUDfunctions deleteAllGuests await getAllGuests(): ", allGuests);
+  const allGuestsLength = allGuests.length;
+  console.log("CRUDfunctions deleteAllGuests allGuestsLength: ", allGuestsLength);
+  for (let i = 0; i < allGuestsLength; i++) {
+    await deleteGuestById(allGuests[i].id);
+  }
+}

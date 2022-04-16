@@ -83,16 +83,16 @@ export const addGuest = css`
   transition: 0.1s ease-in-out;
 
   &:hover {
-    color: white;
-    border: 2px solid white;
-    background: green;
+    color: #034b03;
+    border: 2px solid #034b03;
+    background: white;
   }
 
   &,
   &:active {
-    color: green;
-    border: 2px solid green;
-    background: white;
+    color: white;
+    border: 2px solid white;
+    background: #034b03;
   }
 `;
 
@@ -101,15 +101,39 @@ export const deleteGuest = css`
   min-width: 20%;
 
   &:hover {
-    color: white;
-    border: 2px solid white;
-    background: red;
+    color: #911f21;
+    border: 2px solid #911f21;
+    background: white;
   }
 
   &,
   &:active {
-    color: red;
-    border: 2px solid red;
-    background: white;
+    color: white;
+    border: 2px solid white;
+    background: #911f21;
+  }
+`;
+
+export const sorterStyle = css`
+  display: flex;
+  flex-flow: row nowrap;
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  input[type='checkbox'] {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 1em;
+    height: 1em;
+    border: 0;
   }
 `;
