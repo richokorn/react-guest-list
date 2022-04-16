@@ -1,11 +1,12 @@
 ## React Guest List
 
-- This is a simple one-page project showcasing a functional "Guest List"
+- This is a simple one-page project showcasing a functional "Guest List".
+- It is connected to a Heroku deployed Express API with REST functions.
+- [Netlify Link](https://app.netlify.com/sites/guileless-genie-8144fd/settings/deploys)]
+- [api-guest-list.herokuapp](http://api-guest-list.herokuapp.com)
 
-## Acceptance Criteria
+#### Features
 
-- [ ] Preflight runs through without errors in your project
-  - [ ] Link in your GitHub repo's About section: Netlify deployed website
-- [ ] Link to CodeSandbox in comment below
-- [ ] [Drone bot](https://learn.upleveled.io/courses/btcmp-l-webfs-gen-0/modules/cheatsheet-tasks/#upleveled-drone) has been tagged and responded with a passing message
-- [ ] Correct GitHub commit message format (see [Writing Commit Messages](https://learn.upleveled.io/courses/btcmp-l-webfs-gen-0/modules/cheatsheet-git-github/#writing-commit-messages))
+- Entering a first and last name is required, missing either notifies the user.
+- Keyboard shortcut to speed up data entry
+- Responsive design for Mobile and Desktop view
