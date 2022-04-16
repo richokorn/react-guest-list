@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 export const xWrapper = css`
   display: flex;
   flex-flow: row wrap;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   /* align-items: center; */
 `;
 
@@ -29,7 +29,7 @@ export const ySpacer = css`
 `;
 
 export const hr = css`
-  border: 0;
+  /* border: 0; */
   height: 1px;
   background-color: white;
 `;
@@ -51,7 +51,7 @@ export const cardStyle = css`
 
   border-radius: 24px;
   background-color: #00000000;
-  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 8px -2px rgba(0, 0, 0, 0.9);
 `;
 
 export const cardHeader = css`
@@ -79,4 +79,37 @@ export const cardBody = css`
   color: white;
 `;
 
-// ATopCard cardBody background-color: #41579A;
+export const addGuest = css`
+  transition: 0.1s ease-in-out;
+
+  &:hover {
+    color: white;
+    border: 2px solid white;
+    background: green;
+  }
+
+  &,
+  &:active {
+    color: green;
+    border: 2px solid green;
+    background: white;
+  }
+`;
+
+export const deleteGuest = css`
+  transition: 0.1s ease-in-out;
+  min-width: 20%;
+
+  &:hover {
+    color: white;
+    border: 2px solid white;
+    background: red;
+  }
+
+  &,
+  &:active {
+    color: red;
+    border: 2px solid red;
+    background: white;
+  }
+`;

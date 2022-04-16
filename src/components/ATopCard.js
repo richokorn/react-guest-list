@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 import {
+  addGuest,
   cardBody,
   cardHeader,
   cardStyle,
@@ -10,9 +11,16 @@ import {
   ySpacer,
   yWrapper,
 } from './emotionCSS';
+import { useWindowDimensions } from './useWindowDimensions';
 
-export default function ATopCard() {
-  const [isChecked, setIsChecked] = useState(false);
+// Create a useWindowDimensions hook:
+
+export default function ATopCard(props) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [firstNameFieldWarning, setFirstNameFieldWarning] = useState(false);
+  const [lastNameFieldWarning, setLastNameFieldWarning] = useState(false);
+  const { innerHeight, innerWidth } = useWindowDimensions();
 
   return (
     <div>
@@ -25,34 +33,73 @@ export default function ATopCard() {
         </div>
         <div css={[cardBody, yWrapper]} style={{ backgroundColor: '#41579A' }}>
           <h2>enter guest details here</h2>
-          <div css={ySpacer} />
-          <div css={xWrapper} style={{ width: '100%' }}>
-            <div css={[yWrapper, xSpacer]}>
-              <label htmlFor="attending">Attending?</label>
-              <div css={ySpacer} />
+          <div css={[hr, ySpacer]} />
+          <div
+            css={xWrapper}
+            style={{ width: '100%', justifyContent: 'space-between' }}
+          >
+            <div css={yWrapper} style={{ flex: 'auto' }}>
+              <label htmlFor="firstName">First name</label>
               <input
-                value={isChecked}
-                type="checkbox"
-                id="attending"
+                style={
+                  firstNameFieldWarning
+                    ? { outline: 'none', boxShadow: '0px 0px 3px 3px red' }
+                    : null
+                }
+                id="firstName"
+                placeholder="First Name"
+                value={firstName}
                 onChange={(event) => {
-                  setIsChecked(event.target.checked);
+                  setFirstName(event.target.value);
+                }}
+                onFocusCapture={() => {
+                  setFirstNameFieldWarning(false);
                 }}
               />
             </div>
-            <div css={yWrapper} style={{ width: 'fit-content' }}>
-              <label htmlFor="firstName">First Name</label>
-              <div css={ySpacer} />
-              <input id="firstName" placeholder="First Name" />
-            </div>
-            <div css={yWrapper} style={{ width: 'fit-content' }}>
-              <label htmlFor="lastName">Last Name</label>
-              <div css={ySpacer} />
-              <input id="lastName" placeholder="Last Name" />
+            <div css={innerWidth > 699 ? xSpacer : null} />
+            <div css={yWrapper} style={{ flex: 'auto' }}>
+              <label htmlFor="lastName">Last name</label>
+              <input
+                style={
+                  lastNameFieldWarning
+                    ? { outline: 'none', boxShadow: '0px 0px 3px 3px red' }
+                    : null
+                }
+                id="lastName"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(event) => {
+                  setLastName(event.target.value);
+                }}
+                onFocusCapture={() => {
+                  setLastNameFieldWarning(false);
+                }}
+              />
             </div>
           </div>
-          <div css={ySpacer} />
-          <div css={hr} />
-          <div css={ySpacer} />
+          <div css={[hr, ySpacer]} />
+          <button
+            css={addGuest}
+            onClick={async () => {
+              if (!firstName && !lastName) {
+                setFirstNameFieldWarning(true);
+                setLastNameFieldWarning(true);
+              } else if (!firstName) {
+                setFirstNameFieldWarning(true);
+              } else if (!lastName) {
+                setLastNameFieldWarning(true);
+              } else {
+                // first add the guest using props.addGuest(firstName, LastName;
+                await props.addGuest(firstName, lastName);
+
+                setFirstName('');
+                setLastName('');
+              }
+            }}
+          >
+            Add Guest
+          </button>
         </div>
       </div>
     </div>
