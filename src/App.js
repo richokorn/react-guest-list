@@ -28,9 +28,6 @@ export default function App() {
   useEffect(() => {
     async function fetchAllGuests() {
       const updatedAllGuests = await getAllGuests();
-
-      console.log('useEffectLoopCheck');
-
       updatedAllGuests.length === 0
         ? setAllGuests([])
         : setAllGuests(updatedAllGuests);
