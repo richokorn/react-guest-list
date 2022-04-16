@@ -42,6 +42,7 @@ export default function ATopCard(props) {
   async function onKeyPressed(e) {
     if (e.key === 'Enter') {
       await addTheGuest();
+      document.getElementById('firstName').focus();
     }
   }
 

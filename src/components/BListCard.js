@@ -11,6 +11,7 @@ import {
   cardHeader,
   cardStyle,
   deleteGuest,
+  deleteGuests,
   hr,
   sorterStyle,
   xSpacer,
@@ -202,16 +203,20 @@ export default function BListCard(props) {
           style={{ backgroundColor: 'white', h2: { color: '#324376' } }}
         >
           <h2 style={{ fontSize: 24 }}>List of Guests</h2>
+          <button
+            css={deleteGuests}
+            style={{ height: '100%' }}
+            onClick={async () => {
+              await deleteAllGuests();
+              props.setAllGuests([]);
+            }}
+          >
+            {innerWidth > 700 ? 'Delete All' : '❌ All'}
+          </button>
         </div>
       </div>
       <div css={[cardBody, yWrapper]} style={{ backgroundColor: '#324376' }}>
         <div css={xWrapper} style={{ display: 'space-between' }}>
-          <div css={yWrapper} style={{ width: 'fit-content' }}>
-            <em style={innerWidth > 700 ? { fontsize: '12px' } : null}>
-              {innerWidth > 700 ? 'Click ' : 'Tap'} checkbox to toggle
-              attendance
-            </em>
-          </div>
           <div css={yWrapper}>
             <div css={[xWrapper, sorterStyle]}>
               <label htmlFor="attendingGuestsToggle">Sort by Attending</label>
@@ -246,16 +251,10 @@ export default function BListCard(props) {
               />
             </div>
           </div>
-          <button
-            css={deleteGuest}
-            style={{ height: '100%' }}
-            onClick={async () => {
-              await deleteAllGuests();
-              props.setAllGuests([]);
-            }}
-          >
-            {innerWidth > 700 ? 'Delete All' : '❌ All'}
-          </button>
+          <em>
+            {innerWidth > 700 ? 'Click ' : 'Tap'} guest checkbox to toggle
+            attendance
+          </em>
         </div>
         <div css={[hr, ySpacer]} />
         {listItems.length === 0 ? (

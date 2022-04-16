@@ -114,6 +114,24 @@ export const deleteGuest = css`
   }
 `;
 
+export const deleteGuests = css`
+  transition: 0.1s ease-in-out;
+  width: 20%;
+
+  &:hover {
+    color: white;
+    border: 2px solid white;
+    background: #911f21;
+  }
+
+  &,
+  &:active {
+    color: #911f21;
+    border: 2px solid #911f21;
+    background: white;
+  }
+`;
+
 export const sorterStyle = css`
   display: flex;
   flex-flow: row nowrap;

@@ -26,11 +26,11 @@ Some features are similar to [this example](https://todomvc.com/examples/react/#
 
 ## Stretch TODOs
 
-- [ ] Button to delete all attending guests
-- [ ] Filters:
-  - [ ] Filter to show only non-attending guests
-  - [ ] Filter to show only attending guests
-  - [ ] Button to reset filters to again show all of the guests
+- [x] Button to delete all attending guests
+- [x] Filters:
+  - [x] Filter to show only non-attending guests
+  - [x] Filter to show only attending guests
+  - [x] Button to reset filters to again show all of the guests
 
 ## Acceptance Criteria
 
