@@ -20,7 +20,7 @@ export default function ATopCard(props) {
   const [lastName, setLastName] = useState('');
   const [firstNameFieldWarning, setFirstNameFieldWarning] = useState(false);
   const [lastNameFieldWarning, setLastNameFieldWarning] = useState(false);
-  const { innerHeight, innerWidth } = useWindowDimensions();
+  const { innerWidth } = useWindowDimensions();
 
   return (
     <div>
@@ -41,6 +41,7 @@ export default function ATopCard(props) {
             <div css={yWrapper} style={{ flex: 'auto' }}>
               <label htmlFor="firstName">First name</label>
               <input
+                disabled={props.disabledInputs}
                 style={
                   firstNameFieldWarning
                     ? { outline: 'none', boxShadow: '0px 0px 3px 3px red' }
@@ -61,6 +62,7 @@ export default function ATopCard(props) {
             <div css={yWrapper} style={{ flex: 'auto' }}>
               <label htmlFor="lastName">Last name</label>
               <input
+                disabled={props.disabledInputs}
                 style={
                   lastNameFieldWarning
                     ? { outline: 'none', boxShadow: '0px 0px 3px 3px red' }

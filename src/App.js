@@ -6,7 +6,7 @@ import { baseURL, getAllGuests } from './components/CRUDfunctions';
 import { appleWrapper, ySpacer, yWrapper } from './components/emotionCSS';
 
 export default function App() {
-  const [allGuests, setAllGuests] = useState([]);
+  const [allGuests, setAllGuests] = useState();
 
   // addGuest in a useCallback Hook using firstName and lastName
   const addGuest = useCallback(
@@ -28,8 +28,12 @@ export default function App() {
   useEffect(() => {
     async function fetchAllGuests() {
       const updatedAllGuests = await getAllGuests();
+
       console.log('useEffectLoopCheck');
-      setAllGuests(updatedAllGuests);
+
+      updatedAllGuests.length === 0
+        ? setAllGuests([])
+        : setAllGuests(updatedAllGuests);
     }
     fetchAllGuests().catch((error) =>
       console.log('CRUDfunctions.js fetchAllGuests().catch((error): ', error),
@@ -41,11 +45,7 @@ export default function App() {
       <div css={[yWrapper, appleWrapper]}>
         <div css={ySpacer} />
         <div css={ySpacer} />
-        <ATopCard
-          addGuest={addGuest}
-          allGuests={allGuests}
-          setAllGuests={setAllGuests}
-        />
+        <ATopCard addGuest={addGuest} setAllGuests={setAllGuests} />
         <div css={ySpacer} />
         <div css={ySpacer} />
         <BListCard allGuests={allGuests} setAllGuests={setAllGuests} />
